@@ -18,6 +18,7 @@ This is a clone of the video game [Flappy Bird](https://en.wikipedia.org/wiki/Fl
 
 1. Python 3.10.4
 2. Pygame 2.1.2
+3. Pytmx 3. 2. Pygame 2.1.2
 
 ---
 
@@ -26,6 +27,7 @@ This is a clone of the video game [Flappy Bird](https://en.wikipedia.org/wiki/Fl
 1. Download this codebase
 2. Install Python 3.10.4 on your machine
 3. Install Pygame 2.1.2 (Linux `python3 pip install pygame`) (Windows `python3 -m pip install pygame`)
+4. Install Pytmx 3.31 (Linux `pip3 install pytmx`) (Windows `pip3 -m install pytmx`)
 
 ### 3: Run project
 
