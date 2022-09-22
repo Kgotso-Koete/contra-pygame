@@ -31,7 +31,7 @@ This is a clone of the video game [Flappy Bird](https://en.wikipedia.org/wiki/Fl
 
 ### 3: Run project
 
-1. Run locally: Navigate to the project folder and run `python3 c1_setup/code/main.py` to start the game.
+1. Run locally: Navigate to the project folder and run `python3 main.py` to start the game.
 2. Run in an an in-browser IDE: Visit the [Replit](https://replit.com/@KgotsoKoete/Flappy-Bird-Pygame?v=1) and run in full screen mode for the best experience.
 
 ### Build project executable
