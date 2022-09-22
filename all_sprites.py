@@ -16,7 +16,7 @@ class AllSprites(pygame.sprite.Group):
         self.offset.y = player.rect.centery - WINDOW_HEIGHT / 2
 
         # blit all sprites
-        for sprite in self.sprites():
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.z):
             # get copy of the rectangle of the current sprite
             offset_rect = sprite.image.get_rect(center=sprite.rect.center)
             offset_rect.center -= self.offset
