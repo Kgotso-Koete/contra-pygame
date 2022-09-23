@@ -26,11 +26,11 @@ class Main:
             Tile((x * 64, y * 64), surf, self.all_sprites, LAYERS[layer_name])
 
     def setup(self):
-        self.tmx_map = load_pygame("./c1_setup/data/map.tmx")
+        self.tmx_map = load_pygame("./assets/data/map.tmx")
         # render tiles
 
         # render layers
-        self.load_map_layer("Level") # render level separately for collision mechanics
+        self.load_map_layer("Level")  # render level separately for collision mechanics
         layers = ["BG", "BG Detail", "FG Detail Bottom", "FG Detail Top"]
         for layer in layers:
             self.load_map_layer(layer)
@@ -38,7 +38,8 @@ class Main:
         # get Player entity from tiles and ise their position to initiate Player position
         for obj in self.tmx_map.get_layer_by_name("Entities"):
             if obj.name == "Player":
-                self.player = Player((obj.x, obj.y), self.all_sprites)
+                player_graphics = "./assets/graphics/player/"
+                self.player = Player((obj.x, obj.y), self.all_sprites, player_graphics)
         return
 
     def run(self):
