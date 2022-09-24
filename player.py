@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, path):
+    def __init__(self, pos, groups, path, collision_sprites):
         super().__init__(groups)
         self.import_assets(path)
         self.frame_index = 0
@@ -24,6 +24,9 @@ class Player(pygame.sprite.Sprite):
         self.direction = vector()
         self.pos = vector(self.rect.topleft)
         self.speed = 400
+        # collision
+        self.old_rec = self.rect.copy()
+        self.collision_sprites = collision_sprites
 
     def import_assets(self, path):
         self.animations = {}
@@ -69,15 +72,39 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.y = 0
 
+    def collision(self, direction):
+        for sprite in self.collision_sprites.sprites():
+            if sprite.rect.colliderect(self.rect):
+                if direction == "horizontal":
+                    # left collision
+                    if self.rect.left <= sprite.rect.right and self.old_rect.left >= sprite.old_rect.right:
+                        self.rect.left = sprite.rect.right
+                    # right collision
+                    if self.rect.right >= sprite.rect.left and self.old_rect.right <= sprite.old_rect.left:
+                        self.rect.right = sprite.rect.left
+                    self.pos.x = self.rect.x
+
+                else:
+                    # bottom collision
+                    if self.rect.bottom >= sprite.rect.top and self.old_rect.bottom <= sprite.old_rect.top:
+                        self.rect.bottom = sprite.rect.top
+                    # top collision
+                    if self.rect.top <= sprite.rect.bottom and self.old_rect.top >= sprite.old_rect.bottom:
+                        self.rect.top = sprite.rect.bottom
+                    self.pos.y = self.rect.y
+
     def move(self, dt):
         # horizontal movement
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
+        self.collision("horizontal")
         # vertical movement
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.y = round(self.pos.y)
+        self.collision("vertical")
 
     def update(self, dt):
+        self.old_rect = self.rect.copy()  # store previous frame for collision detection
         self.input()
         self.move(dt)
         self.animate(dt)
