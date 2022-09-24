@@ -7,6 +7,8 @@ from pygame.math import Vector2 as vector
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+GRAVITY = 15
+JUMP_SPEED = 1400
 
 
 class Player(pygame.sprite.Sprite):
@@ -27,6 +29,36 @@ class Player(pygame.sprite.Sprite):
         # collision
         self.old_rec = self.rect.copy()
         self.collision_sprites = collision_sprites
+
+        # vertical movement
+        self.gravity = GRAVITY
+        self.jump_speed = JUMP_SPEED
+        self.on_floor = False  # only be able to jump if the player is on the floor
+        self.duck = False
+        return
+
+    def get_status(self):
+        # idle
+        if self.direction.x == 0 and self.on_floor:
+            self.status = self.status.split("_")[0] + "_idle"
+        # jump
+        if not self.direction.y == 0 and not self.on_floor:
+            self.status = self.status.split("_")[0] + "_jump"
+
+        # duck
+        if self.on_floor and self.duck:
+            self.status = self.status.split("_")[0] + "_duck"
+
+        return
+
+    def check_contact(self):
+        bottom_rect = pygame.Rect(0, 0, self.rect.width, 5)
+        bottom_rect.midtop = self.rect.midbottom
+
+        for sprite in self.collision_sprites.sprites():
+            if sprite.rect.colliderect(bottom_rect):
+                if self.direction.y > 0:  # if the player is moving downwards
+                    self.on_floor = True
 
     def import_assets(self, path):
         self.animations = {}
@@ -60,17 +92,19 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
+            self.status = "right"
         elif keys[pygame.K_LEFT]:
             self.direction.x = -1
+            self.status = "left"
         else:
             self.direction.x = 0
 
-        if keys[pygame.K_UP]:
-            self.direction.y = -1
-        elif keys[pygame.K_DOWN]:
-            self.direction.y = 1
+        if keys[pygame.K_UP] and self.on_floor:
+            self.direction.y = -self.jump_speed
+        if keys[pygame.K_DOWN]:
+            self.duck = True
         else:
-            self.direction.y = 0
+            self.duck = False
 
     def collision(self, direction):
         for sprite in self.collision_sprites.sprites():
@@ -88,23 +122,33 @@ class Player(pygame.sprite.Sprite):
                     # bottom collision
                     if self.rect.bottom >= sprite.rect.top and self.old_rect.bottom <= sprite.old_rect.top:
                         self.rect.bottom = sprite.rect.top
+                        self.on_floor = True
                     # top collision
                     if self.rect.top <= sprite.rect.bottom and self.old_rect.top >= sprite.old_rect.bottom:
                         self.rect.top = sprite.rect.bottom
                     self.pos.y = self.rect.y
+                    self.direction.y = 0
+        if self.on_floor and not self.direction.y == 0:
+            self.on_floor = False
 
     def move(self, dt):
+        if self.duck and self.on_floor:
+            self.direction.x = 0
         # horizontal movement
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
         self.collision("horizontal")
         # vertical movement
-        self.pos.y += self.direction.y * self.speed * dt
+        # gravity
+        self.direction.y += self.gravity
+        self.pos.y += self.direction.y * dt
         self.rect.y = round(self.pos.y)
         self.collision("vertical")
 
     def update(self, dt):
         self.old_rect = self.rect.copy()  # store previous frame for collision detection
         self.input()
+        self.get_status()
         self.move(dt)
+        self.check_contact()
         self.animate(dt)
