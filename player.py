@@ -13,7 +13,7 @@ JUMP_SPEED = 1400
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, path, collision_sprites):
+    def __init__(self, pos, groups, path, collision_sprites, shoot):
         super().__init__(groups)
         self.import_assets(path)
         self.frame_index = 0
@@ -37,7 +37,22 @@ class Player(pygame.sprite.Sprite):
         self.on_floor = False  # only be able to jump if the player is on the floor
         self.duck = False
         self.moving_floor = None
+
+        # interaction
+        self.shoot = shoot
+
+        # create bullet timer
+        self.can_shoot = True
+        self.shoot_time = None
+        self.cooldown = 200
         return
+
+    def shoot_timer(self):
+        if not self.can_shoot:
+            current_time = pygame.time.get_ticks()
+            # check if time elapsed since last shoot trigger is more than cooldown period
+            if (current_time - self.shoot_time) > self.cooldown:
+                self.can_shoot = True
 
     def get_status(self):
         # idle
@@ -112,6 +127,16 @@ class Player(pygame.sprite.Sprite):
         else:
             self.duck = False
 
+        if keys[pygame.K_SPACE] and self.can_shoot:
+            entity = self
+            direction = vector(1, 0) if self.status.split("_")[0] == "right" else vector(-1, 0)
+            y_offset = vector(0, -16) if not self.duck else vector(0, 10)
+            pos = (self.rect.center + direction * 50) + y_offset
+
+            self.shoot(pos, direction, entity)
+            self.can_shoot = False
+            self.shoot_time = pygame.time.get_ticks()
+
     def collision(self, direction):
         for sprite in self.collision_sprites.sprites():
             if sprite.rect.colliderect(self.rect):
@@ -165,3 +190,6 @@ class Player(pygame.sprite.Sprite):
         self.move(dt)
         self.check_contact()
         self.animate(dt)
+
+        # timer
+        self.shoot_timer()

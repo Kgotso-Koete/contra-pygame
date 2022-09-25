@@ -4,6 +4,7 @@ from pytmx.util_pygame import load_pygame
 from tile import Tile, CollisionTile, MovingPlatform
 from player import Player
 from all_sprites import AllSprites
+from bullet import Bullet
 
 
 class Main:
@@ -20,7 +21,12 @@ class Main:
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
         self.platform_sprites = pygame.sprite.Group()
+        self.bullet_sprites = pygame.sprite.Group()
+
         self.setup()
+
+        # bullet images
+        self.bullet_surf = pygame.image.load("./assets/graphics/bullet.png")
         return
 
     def load_map_layer(self, layer_name, tile_type):
@@ -40,7 +46,7 @@ class Main:
                 path = "./assets/graphics/player/"
                 pos = (obj.x, obj.y)
                 groups = self.all_sprites
-                self.player = Player(pos, groups, path, self.collision_sprites)
+                self.player = Player(pos, groups, path, self.collision_sprites, self.shoot)
 
     def load_moving_platforms(self):
         self.platform_border_rects = []
@@ -76,6 +82,11 @@ class Main:
                 platform.rect.bottom = self.player.rect.top
                 platform.pos.y = platform.rect.y
                 platform.direction.y = -1
+
+    def shoot(self, pos, direction, entity):
+        surf = self.bullet_surf
+        groups = [self.all_sprites, self.bullet_sprites]
+        Bullet(pos, surf, direction, groups)
 
     def setup(self):
         self.tmx_map = load_pygame("./assets/data/map.tmx")
