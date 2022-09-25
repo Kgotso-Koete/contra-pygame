@@ -36,6 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_speed = JUMP_SPEED
         self.on_floor = False  # only be able to jump if the player is on the floor
         self.duck = False
+        self.moving_floor = None
         return
 
     def get_status(self):
@@ -58,8 +59,12 @@ class Player(pygame.sprite.Sprite):
 
         for sprite in self.collision_sprites.sprites():
             if sprite.rect.colliderect(bottom_rect):
-                if self.direction.y > 0:  # if the player is moving downwards
+                # if the player is moving downwards
+                if self.direction.y > 0:
                     self.on_floor = True
+                # check if in contact with moving platform
+                if hasattr(sprite, "direction"):
+                    self.moving_floor = sprite
 
     def import_assets(self, path):
         self.animations = {}
@@ -139,12 +144,19 @@ class Player(pygame.sprite.Sprite):
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
         self.collision("horizontal")
-        # vertical movement
-        # gravity
+        # vertical movement and gravity
         self.direction.y += self.gravity
         self.pos.y += self.direction.y * dt
+        # glue the player to the platform
+        if self.moving_floor and self.moving_floor.direction.y > 0 and self.direction.y > 0:
+            self.direction.y = 0
+            self.rect.bottom = self.moving_floor.rect.top
+            self.pos.y = self.rect.y
+            self.on_floor = True
+
         self.rect.y = round(self.pos.y)
         self.collision("vertical")
+        self.moving_floor = None
 
     def update(self, dt):
         self.old_rect = self.rect.copy()  # store previous frame for collision detection

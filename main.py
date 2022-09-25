@@ -71,9 +71,11 @@ class Main:
                         platform.rect.bottom = border.top  # change rectangle position
                         platform.pos.y = platform.rect.y  # change tile position
                         platform.direction.y = -1  # change platform direction
-                # bounce the platforms
-                # if the platform is moving up the place top of platform to bottom of border
-                # then change the direction of the platform 1 -> -1
+            # check if the player is colliding below the platform
+            if platform.rect.colliderect(self.player.rect) and self.player.rect.centery > platform.rect.centery:
+                platform.rect.bottom = self.player.rect.top
+                platform.pos.y = platform.rect.y
+                platform.direction.y = -1
 
     def setup(self):
         self.tmx_map = load_pygame("./assets/data/map.tmx")
@@ -101,7 +103,7 @@ class Main:
 
             dt = self.clock.tick() / 1000
             self.display_surface.fill((249, 131, 103))
-            
+
             self.platform_collisions()
             self.all_sprites.update(dt)
             self.all_sprites.custom_draw(self.player)
