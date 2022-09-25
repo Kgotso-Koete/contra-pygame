@@ -8,6 +8,7 @@ from pygame.math import Vector2 as vector
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GRAVITY = 15
+SPEED = 400
 JUMP_SPEED = 1400
 
 
@@ -25,7 +26,7 @@ class Player(pygame.sprite.Sprite):
         # float based movement
         self.direction = vector()
         self.pos = vector(self.rect.topleft)
-        self.speed = 400
+        self.speed = SPEED
         # collision
         self.old_rec = self.rect.copy()
         self.collision_sprites = collision_sprites
