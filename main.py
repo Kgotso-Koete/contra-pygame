@@ -5,6 +5,7 @@ from tile import Tile, CollisionTile, MovingPlatform
 from player import Player
 from all_sprites import AllSprites
 from bullet import Bullet, FireAnimation
+from enemy import Enemy
 
 
 class Main:
@@ -42,14 +43,6 @@ class Main:
             elif tile_type == "collision":
                 groups = [self.all_sprites, self.collision_sprites]
                 CollisionTile(pos, surf, groups)
-
-    def load_player(self):
-        for obj in self.tmx_map.get_layer_by_name("Entities"):
-            if obj.name == "Player":
-                path = "./assets/graphics/player/"
-                pos = (obj.x, obj.y)
-                groups = self.all_sprites
-                self.player = Player(pos, groups, path, self.collision_sprites, self.shoot)
 
     def load_moving_platforms(self):
         self.platform_border_rects = []
@@ -100,6 +93,22 @@ class Main:
         FireAnimation(entity, self.fire_surfs, direction, self.all_sprites)
         return
 
+    def load_player_and_enemies(self):
+        for obj in self.tmx_map.get_layer_by_name("Entities"):
+            if obj.name == "Player":
+                path = "./assets/graphics/player/"
+                pos = (obj.x, obj.y)
+                groups = self.all_sprites
+                self.player = Player(pos, groups, path, self.collision_sprites, self.shoot)
+            if obj.name == "Enemy":
+                pos = (obj.x, obj.y)
+                path = "./assets/graphics/enemies/standard/"
+                groups = self.all_sprites
+                shoot = self.shoot
+                player = self.player
+                collision_sprites = self.collision_sprites
+                Enemy(pos, path, groups, shoot, player, collision_sprites)
+
     def setup(self):
         self.tmx_map = load_pygame("./assets/data/map.tmx")
         # render tiles
@@ -110,8 +119,8 @@ class Main:
         for layer in layers:
             self.load_map_layer(layer, "standard")
 
-        # render player position in tiles
-        self.load_player()
+        # render player and enemy position in tiles
+        self.load_player_and_enemies()
         # render moving platforms that have collision detection
         self.load_moving_platforms()
         return
