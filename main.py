@@ -83,6 +83,13 @@ class Main:
                 platform.pos.y = platform.rect.y
                 platform.direction.y = -1
 
+    def bullet_collisions(self):
+        # obstacles
+        for obstacle in self.collision_sprites.sprites():
+            pygame.sprite.spritecollide(obstacle, self.bullet_sprites, True)
+
+        # entities
+
     def shoot(self, pos, direction, entity):
         surf = self.bullet_surf
         groups = [self.all_sprites, self.bullet_sprites]
@@ -117,6 +124,7 @@ class Main:
 
             self.platform_collisions()
             self.all_sprites.update(dt)
+            self.bullet_collisions()
             self.all_sprites.custom_draw(self.player)
             pygame.display.update()
 
