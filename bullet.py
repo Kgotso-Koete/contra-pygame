@@ -1,4 +1,3 @@
-from html.entities import entitydefs
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
