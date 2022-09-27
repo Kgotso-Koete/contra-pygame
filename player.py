@@ -83,7 +83,7 @@ class Player(Entity):
             entity = self
             direction = vector(1, 0) if self.status.split("_")[0] == "right" else vector(-1, 0)
             y_offset = vector(0, -16) if not self.duck else vector(0, 10)
-            pos = (self.rect.center + direction * 50) + y_offset
+            pos = (self.rect.center + direction * 60) + y_offset
 
             self.shoot(pos, direction, entity)
             self.can_shoot = False

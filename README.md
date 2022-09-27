@@ -2,7 +2,7 @@
 
 ### Description of the project
 
-This is a clone of the video game [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird) built while following the [Clear Code tutorial part 1](https://youtu.be/UZg49z76cLw) and [Clear Code tutorial part 2](https://youtu.be/XRw1FUEsSv4). [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird)is a mobile game developed by Vietnamese video game artist and programmer Dong Nguyen (Vietnamese: Nguyễn Hà Đông), under his game development company .Gears. The game is a side-scroller where the player controls a bird, attempting to fly between columns of green pipes without hitting them
+This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra_(series)>) built while following [Christian Koch](https://www.udemy.com/user/christian-koch-59/) [tutorial](https://www.udemy.com/course/learn-python-by-making-games/). [Contra](<https://en.wikipedia.org/wiki/Contra_(series)>)is a video game series produced by Konami composed primarily of run and gun-style shooting games.
 
 ---
 
@@ -49,9 +49,8 @@ The [Windows executable file](./build/exe.win-amd64-3.10/flappy_bird_pygame.exe)
 
 ### Acknowledgements
 
-Special thanks to [Clear Code](https://www.youtube.com/c/ClearCode) for a great tutorial. The tutorial was explained very well, brief and very impactful in showing the basics of Pygame.
+Special thanks to [Christian Koch](https://www.udemy.com/user/christian-koch-59/) for a great [tutorial](https://www.udemy.com/course/learn-python-by-making-games/). I already did Christian's awesome Flappy Bird tutorial to learn the basics of Pygame, so I only did the Contra section of this tutorial. The tutorial was small enough to be completed without investing too much time, but also broad enough to give learners a taste of what it takes to build a complex 2D game. I also liked the gradual build up from Pygame and unstructured code, to using classes to manage complexity. Very well explained, worth every minute and penny.
 
-The tutorial also has a link to the the [original image files](https://github.com/samuelcust/flappy-bird-assets) and the [original sound files](https://www.sounds-resource.com/mobile/flappybird/sound/5309/). The github repo for the actual tutorial can be found [here](https://github.com/clear-code-projects/FlappyBird_Python)
 <br/>
 <br/>
 
