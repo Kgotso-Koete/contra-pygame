@@ -5,6 +5,7 @@ from pygame.math import Vector2 as vector
 from entity import Entity
 
 COOL_DOWN = 1000
+ENTITY_TO_OBJ_MARGIN = 80
 
 
 class Enemy(Entity):
@@ -37,7 +38,7 @@ class Enemy(Entity):
         if distance < 600 and same_y and self.can_shoot:
             bullet_direction = vector(1, 0) if self.status == "right" else vector(-1, 0)
             y_offset = vector(0, -16)
-            pos = self.rect.center + bullet_direction * 40
+            pos = self.rect.center + bullet_direction * ENTITY_TO_OBJ_MARGIN
             entity = self
             self.shoot(pos + y_offset, bullet_direction, entity)
 
@@ -48,6 +49,13 @@ class Enemy(Entity):
     def update(self, dt):
         self.get_status()
         self.animate(dt)
+        self.blink()
+
+        # timer
         self.shoot_timer()
+        self.invul_timer()
         self.check_fire()
+
+        # death
+        self.check_death()
         return

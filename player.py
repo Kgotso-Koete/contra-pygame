@@ -1,4 +1,5 @@
 import os
+import sys
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
@@ -9,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GRAVITY = 15
 SPEED = 400
 JUMP_SPEED = 1400
+HEALTH = 10
 
 
 class Player(Entity):
@@ -23,6 +25,9 @@ class Player(Entity):
         self.jump_speed = JUMP_SPEED
         self.on_floor = False  # only be able to jump if the player is on the floor
         self.moving_floor = None
+
+        # health
+        self.health = HEALTH
 
         return
 
@@ -129,13 +134,25 @@ class Player(Entity):
         self.collision("vertical")
         self.moving_floor = None
 
+    def check_death(self):
+        if self.health <= 0:
+            pygame.quit()
+            sys.exit()
+
     def update(self, dt):
         self.old_rect = self.rect.copy()  # store previous frame for collision detection
         self.input()
         self.get_status()
         self.move(dt)
         self.check_contact()
+
         self.animate(dt)
+        self.blink()
 
         # timer
         self.shoot_timer()
+        self.invul_timer()
+
+        # death
+        self.check_death()
+        return

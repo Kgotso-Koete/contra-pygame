@@ -23,11 +23,12 @@ class Main:
         self.collision_sprites = pygame.sprite.Group()
         self.platform_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
+        self.vulnerable_sprites = pygame.sprite.Group()
 
         self.setup()
 
         # bullet images
-        self.bullet_surf = pygame.image.load("./assets/graphics/bullet.png")
+        self.bullet_surf = pygame.image.load("./assets/graphics/bullet.png").convert_alpha()
         fire_surf_1 = pygame.image.load("./assets/graphics/fire/0.png").convert_alpha()
         fire_surf_2 = pygame.image.load("./assets/graphics/fire/1.png").convert_alpha()
         self.fire_surfs = [fire_surf_1, fire_surf_2]
@@ -85,6 +86,11 @@ class Main:
             pygame.sprite.spritecollide(obstacle, self.bullet_sprites, True)
 
         # entities
+        for sprite in self.vulnerable_sprites.sprites():
+            if pygame.sprite.spritecollide(sprite, self.bullet_sprites, True, pygame.sprite.collide_mask):
+                sprite.damage()
+
+        return
 
     def shoot(self, pos, direction, entity):
         surf = self.bullet_surf
@@ -96,17 +102,19 @@ class Main:
     def load_player_and_enemies(self):
         for obj in self.tmx_map.get_layer_by_name("Entities"):
             if obj.name == "Player":
-                path = "./assets/graphics/player/"
                 pos = (obj.x, obj.y)
-                groups = self.all_sprites
-                self.player = Player(pos, groups, path, self.collision_sprites, self.shoot)
+                shoot = self.shoot
+                groups = [self.all_sprites, self.vulnerable_sprites]
+                collision_sprites = self.collision_sprites
+                path = "./assets/graphics/player/"
+                self.player = Player(pos, groups, path, collision_sprites, shoot)
             if obj.name == "Enemy":
                 pos = (obj.x, obj.y)
-                path = "./assets/graphics/enemies/standard/"
-                groups = self.all_sprites
                 shoot = self.shoot
-                player = self.player
+                groups = [self.all_sprites, self.vulnerable_sprites]
                 collision_sprites = self.collision_sprites
+                path = "./assets/graphics/enemies/standard/"
+                player = self.player
                 Enemy(pos, path, groups, shoot, player, collision_sprites)
 
     def setup(self):

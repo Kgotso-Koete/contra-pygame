@@ -3,11 +3,14 @@ from os import walk
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
+from math import sin
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SPEED = 400
 COOL_DOWN = 200
+HEALTH = 3
+INVULNERABILITY_DURATION = 500
 
 
 class Entity(pygame.sprite.Sprite):
@@ -23,6 +26,7 @@ class Entity(pygame.sprite.Sprite):
         self.image = self.animations[self.status][int(self.frame_index)]
         self.rect = self.image.get_rect(topleft=pos)
         self.z = LAYERS["Level"]
+        self.mask = pygame.mask.from_surface(self.image)
 
         # float based movement
         self.direction = vector()
@@ -41,14 +45,13 @@ class Entity(pygame.sprite.Sprite):
         # vertical movement
         self.duck = False
 
-        return
+        # health
+        self.health = HEALTH
+        self.is_vulnerable = True
+        self.hit_time = None
+        self.invul_duration = INVULNERABILITY_DURATION
 
-    def shoot_timer(self):
-        if not self.can_shoot:
-            current_time = pygame.time.get_ticks()
-            # check if time elapsed since last shoot trigger is more than cooldown period
-            if (current_time - self.shoot_time) > self.cooldown:
-                self.can_shoot = True
+        return
 
     def import_assets(self, path):
         self.animations = {}
@@ -66,6 +69,47 @@ class Entity(pygame.sprite.Sprite):
                     self.animations[key].append(surf)
         return
 
+    def shoot_timer(self):
+        if not self.can_shoot:
+            current_time = pygame.time.get_ticks()
+            # check if time elapsed since last shoot trigger is more than cooldown period
+            if (current_time - self.shoot_time) > self.cooldown:
+                self.can_shoot = True
+        return
+
+    def invul_timer(self):
+        if not self.is_vulnerable:
+            current_time = pygame.time.get_ticks()
+            # check if time elapsed since last time entity received damage is more than invulnerability period
+            if (current_time - self.hit_time) > self.invul_duration:
+                self.is_vulnerable = True
+        return
+
+    def damage(self):
+        if self.is_vulnerable:
+            self.health -= 1
+            self.is_vulnerable = False
+            self.hit_time = pygame.time.get_ticks()
+
+        return
+
+    def check_death(self):
+        if self.health <= 0:
+            self.kill()
+        return
+
+    def blink(self):
+        if not self.is_vulnerable:
+            if self.wave_value():
+                mask = pygame.mask.from_surface(self.image)
+                white_surf = mask.to_surface()
+                white_surf.set_colorkey((0, 0, 0))
+                self.image = white_surf
+
+    def wave_value(self):
+        value = sin(pygame.time.get_ticks())
+        return True if value >= 0 else False
+
     def animate(self, dt):
         self.frame_index += 7 * dt
 
@@ -74,4 +118,5 @@ class Entity(pygame.sprite.Sprite):
             self.frame_index = 0
 
         self.image = self.animations[self.status][int(self.frame_index)]
+        self.mask = pygame.mask.from_surface(self.image)
         return
