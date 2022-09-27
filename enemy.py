@@ -1,4 +1,3 @@
-import os
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
@@ -44,6 +43,7 @@ class Enemy(Entity):
 
             self.can_shoot = False
             self.shoot_time = pygame.time.get_ticks()
+            self.shoot_sound.play()
         return
 
     def update(self, dt):

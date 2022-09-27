@@ -57,6 +57,7 @@ class Player(Entity):
                 # check if in contact with moving platform
                 if hasattr(sprite, "direction"):
                     self.moving_floor = sprite
+        return
 
     def input(self):
         """Get player keyboard input and change sprite position"""
@@ -87,6 +88,9 @@ class Player(Entity):
             self.shoot(pos, direction, entity)
             self.can_shoot = False
             self.shoot_time = pygame.time.get_ticks()
+            self.shoot_sound.play()
+
+        return
 
     def collision(self, direction):
         for sprite in self.collision_sprites.sprites():

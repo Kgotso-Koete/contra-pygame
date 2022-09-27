@@ -51,6 +51,12 @@ class Entity(pygame.sprite.Sprite):
         self.hit_time = None
         self.invul_duration = INVULNERABILITY_DURATION
 
+        # audio
+        self.hit_sound = pygame.mixer.Sound("./assets/audio/hit.wav")
+        self.shoot_sound = pygame.mixer.Sound("./assets/audio/bullet.wav")
+        self.hit_sound.set_volume(0.2)
+        self.shoot_sound.set_volume(0.2)
+
         return
 
     def import_assets(self, path):
@@ -90,6 +96,7 @@ class Entity(pygame.sprite.Sprite):
             self.health -= 1
             self.is_vulnerable = False
             self.hit_time = pygame.time.get_ticks()
+            self.hit_sound.play()
 
         return
 

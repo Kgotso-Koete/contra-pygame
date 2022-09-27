@@ -34,6 +34,10 @@ class Main:
         fire_surf_1 = pygame.image.load("./assets/graphics/fire/0.png").convert_alpha()
         fire_surf_2 = pygame.image.load("./assets/graphics/fire/1.png").convert_alpha()
         self.fire_surfs = [fire_surf_1, fire_surf_2]
+
+        # audio
+        self.music = pygame.mixer.Sound("./assets/audio/music.wav")
+        self.music.play(loops=1)
         return
 
     def load_map_layer(self, layer_name, tile_type):
