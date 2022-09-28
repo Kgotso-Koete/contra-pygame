@@ -145,7 +145,6 @@ class Player(Entity):
             # sys.exit()
             game_over = GameOver()
             game_over.display_game_over()
-            return
 
     def update(self, dt):
         self.old_rect = self.rect.copy()  # store previous frame for collision detection

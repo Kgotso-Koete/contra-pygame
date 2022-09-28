@@ -16,19 +16,24 @@ class GameOver:
 
     def __init__(self):
         """Initialize pygame variables"""
-        # Loop until the user clicks the close button.
         self.done = False
+        self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         return
+
+    def get_font(self, size):
+        return pygame.font.Font("./assets/graphics/menu/font.ttf", size)
 
     def display_game_over(self):
 
-        game_over_text = Text("Game Over", pos=((WINDOW_WIDTH / 2) - 80, WINDOW_HEIGHT / 2))
-        game_over_text.draw()
+        self.screen.fill((249, 131, 103))
+        header_text = self.get_font(100).render("GAME OVER", True, "#d7fcd4")
+        header_text_rect = header_text.get_rect(center=(640, 100))
+        self.screen.blit(header_text, header_text_rect)
         pygame.display.update()
 
         while not self.done:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or event.type == pygame.MOUSEBUTTONDOWN:
                     self.done = True
 
         pygame.quit()

@@ -51,6 +51,10 @@ The [Windows executable file](./build/exe.win-amd64-3.10/flappy_bird_pygame.exe)
 
 Special thanks to [Christian Koch](https://www.udemy.com/user/christian-koch-59/) for a great [tutorial](https://www.udemy.com/course/learn-python-by-making-games/). I already did Christian's awesome Flappy Bird tutorial to learn the basics of Pygame, so I only did the Contra section of this tutorial. The tutorial was small enough to be completed without investing too much time, but also broad enough to give learners a taste of what it takes to build a complex 2D game. I also liked the gradual build up from Pygame and unstructured code, to using classes to manage complexity. Very well explained, worth every minute and penny.
 
+Start menu was created with the help of [BaralTech's](https://www.youtube.com/c/BaralTech)[tutorial](https://youtu.be/GMBqjxcKogA). Here is the [link to their repo](https://github.com/baraltech/Menu-System-PyGame).
+
+Music called `leap.wav` for the start menu was obtained from [Open Game Art](https://opengameart.org/content/leap-8bit). Special thank you to the Artist [Nene](https://opengameart.org/users/nene) for the [Creative Commons License](https://creativecommons.org/publicdomain/zero/1.0/) to use this music.
+
 <br/>
 <br/>
 

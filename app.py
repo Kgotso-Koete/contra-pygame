@@ -8,9 +8,10 @@ from bullet import Bullet, FireAnimation
 from enemy import Enemy
 from overlay import Overlay
 from text import Text
+from game_over import GameOver
 
 
-class App():
+class App:
     """
     Create a single-window game with multiple scenes.
     reference: https://pygame.readthedocs.io/en/latest/5_app/app.html
@@ -148,12 +149,20 @@ class App():
         self.load_moving_platforms()
         return
 
+    def unload(self):
+        self.display_surface.fill((249, 131, 103))
+        self.music.stop()
+        game_over = GameOver()
+        game_over.display_game_over()
+
     def run(self):
         """Run the main game loop"""
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    self.unload()
 
             dt = self.clock.tick() / 1000
             self.display_surface.fill((249, 131, 103))

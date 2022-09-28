@@ -1,6 +1,6 @@
-from app import App
+from start_menu import StartMenu
 
 
 if __name__ == "__main__":
-    app = App()
-    app.run()
+    start_menu = StartMenu()
+    start_menu.main_menu()
