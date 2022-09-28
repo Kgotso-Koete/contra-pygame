@@ -16,9 +16,12 @@ class AllSprites(pygame.sprite.Group):
 
     def load_sky(self):
         # import sky
-        self.fg_sky = pygame.image.load("./assets/graphics/sky/fg_sky.png").convert_alpha()
-        self.bg_sky = pygame.image.load("./assets/graphics/sky/bg_sky.png").convert_alpha()
-        tmx_map = tmx_map = load_pygame("./assets/data/map.tmx")
+        fg_sky_path = os.path.join(GRAPHICS_DIR, "sky", "fg_sky.png")
+        self.fg_sky = pygame.image.load(fg_sky_path).convert_alpha()
+        bg_sky_path = os.path.join(GRAPHICS_DIR, "sky", "bg_sky.png")
+        self.bg_sky = pygame.image.load(bg_sky_path).convert_alpha()
+        tmx_map_path = os.path.join(DATA_DIR, "map.tmx")
+        tmx_map = tmx_map = load_pygame(tmx_map_path)
 
         # dimensions
         self.padding = WINDOW_WIDTH / 2

@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
-from entity import Entity
+from app.game_objects.shared.entity import Entity
 
 COOL_DOWN = 1000
 ENTITY_TO_OBJ_MARGIN = 80

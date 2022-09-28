@@ -1,6 +1,6 @@
 import pygame, sys
 from settings import *
-from text import Text
+from app.game_objects.shared.text import Text
 
 
 BLACK = (0, 0, 0)
@@ -21,7 +21,8 @@ class GameOver:
         return
 
     def get_font(self, size):
-        return pygame.font.Font("./assets/graphics/menu/font.ttf", size)
+        font_path = os.path.join(GRAPHICS_DIR, "menu", "font.ttf")
+        return pygame.font.Font(font_path, size)
 
     def display_game_over(self):
 

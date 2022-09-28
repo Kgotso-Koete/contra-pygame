@@ -1,6 +1,6 @@
-import pygame, sys
-from button import Button
-from app import App
+import pygame, sys, os
+from app.game_objects.shared.button import Button
+from app.app import App
 from settings import *
 
 
@@ -13,16 +13,19 @@ class StartMenu:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Menu")
-        self.back_ground = pygame.image.load("./assets/graphics/menu/background.png")
+        back_ground_path = path = os.path.join(GRAPHICS_DIR, "menu", "background.png")
+        self.back_ground = pygame.image.load(back_ground_path)
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
         # audio
-        self.music = pygame.mixer.Sound("./assets/audio/leap.wav")
+        music_path = os.path.join(AUDIO_DIR, "leap.wav")
+        self.music = pygame.mixer.Sound(music_path)
         self.music.play(loops=1)
         return
 
-    def get_font(self, size):  
-        return pygame.font.Font("./assets/graphics/menu/font.ttf", size)
+    def get_font(self, size):
+        font_path = os.path.join(GRAPHICS_DIR, "menu", "font.ttf")
+        return pygame.font.Font(font_path, size)
 
     def play(self):
         self.music.stop()
@@ -43,7 +46,7 @@ class StartMenu:
                 text_input="BACK",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
-                hovering_color="Orange",
+                hovering_color="Red",
             )
 
             go_back_text.changeColor(mouse_pos)
@@ -67,8 +70,10 @@ class StartMenu:
             header_text = self.get_font(100).render("MAIN MENU", True, "#d7fcd4")
             header_text_rect = header_text.get_rect(center=(640, 100))
 
+            play_button_path = os.path.join(GRAPHICS_DIR, "menu", "play_rect.png")
+
             play_button = Button(
-                image=pygame.image.load("./assets/graphics/menu/play_rect.png"),
+                image=pygame.image.load(play_button_path),
                 pos=(640, 250),
                 text_input="PLAY",
                 font=self.get_font(75),
@@ -76,8 +81,10 @@ class StartMenu:
                 hovering_color="White",
             )
 
+            options_button_path = os.path.join(GRAPHICS_DIR, "menu", "options_rect.png")
+
             options_button = Button(
-                image=pygame.image.load("./assets/graphics/menu/options_rect.png"),
+                image=pygame.image.load(options_button_path),
                 pos=(640, 400),
                 text_input="OPTIONS",
                 font=self.get_font(75),
@@ -85,8 +92,10 @@ class StartMenu:
                 hovering_color="White",
             )
 
+            quit_button_path = os.path.join(GRAPHICS_DIR, "menu", "quit_rect.png")
+
             quit_button = Button(
-                image=pygame.image.load("./assets/graphics/menu/quit_rect.png"),
+                image=pygame.image.load(quit_button_path),
                 pos=(640, 550),
                 text_input="QUIT",
                 font=self.get_font(75),

@@ -8,7 +8,8 @@ class Overlay:
     def __init__(self, player):
         self.player = player
         self.display_surface = pygame.display.get_surface()
-        self.health_surf = pygame.image.load("./assets/graphics/health.png").convert_alpha()
+        health_bar_path = os.path.join(GRAPHICS_DIR, "health.png")
+        self.health_surf = pygame.image.load(health_bar_path).convert_alpha()
         return
 
     def display(self):

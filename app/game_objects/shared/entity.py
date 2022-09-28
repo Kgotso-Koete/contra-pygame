@@ -6,7 +6,6 @@ from pygame.math import Vector2 as vector
 from math import sin
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SPEED = 400
 COOL_DOWN = 200
 HEALTH = 3
@@ -52,18 +51,25 @@ class Entity(pygame.sprite.Sprite):
         self.invul_duration = INVULNERABILITY_DURATION
 
         # audio
-        self.hit_sound = pygame.mixer.Sound("./assets/audio/hit.wav")
-        self.shoot_sound = pygame.mixer.Sound("./assets/audio/bullet.wav")
+        hit_sound_path = os.path.join(AUDIO_DIR, "hit.wav")
+        self.hit_sound = pygame.mixer.Sound(hit_sound_path)
+        shoot_sound_path = os.path.join(AUDIO_DIR, "bullet.wav")
+        self.shoot_sound = pygame.mixer.Sound(shoot_sound_path)
         self.hit_sound.set_volume(0.2)
         self.shoot_sound.set_volume(0.2)
 
         return
 
     def import_assets(self, path):
+
+        relative_path = os.path.relpath(path)
+        relative_folder = "./" + relative_path
+
         self.animations = {}
 
         # create keys in animations named after each folder with an action
-        for index, folder in enumerate(walk(path)):
+        for index, folder in enumerate(walk(relative_folder)):
+
             if index == 0:
                 for name in folder[1]:
                     self.animations[name] = []

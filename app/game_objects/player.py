@@ -3,8 +3,8 @@ import sys
 import pygame
 from settings import *
 from pygame.math import Vector2 as vector
-from entity import Entity
-from game_over import GameOver
+from app.game_objects.shared.entity import Entity
+from app.scenes.game_over import GameOver
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

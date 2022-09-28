@@ -1,5 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 /__pycache__
+/app/__pycache__
+/app/game_objects/__pycache__
+/app/game_objects/shared/__pycache__
+/app/scenes/__pycache__
 # compiled output
 
 

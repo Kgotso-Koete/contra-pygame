@@ -1,4 +1,6 @@
-from start_menu import StartMenu
+import os
+from settings import *
+from app.scenes.start_menu import StartMenu
 
 
 if __name__ == "__main__":

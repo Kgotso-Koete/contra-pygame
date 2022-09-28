@@ -1,14 +1,14 @@
-import pygame, sys
+import pygame, sys, os
 from settings import *
 from pytmx.util_pygame import load_pygame
-from tile import Tile, CollisionTile, MovingPlatform
-from player import Player
-from all_sprites import AllSprites
-from bullet import Bullet, FireAnimation
-from enemy import Enemy
-from overlay import Overlay
-from text import Text
-from game_over import GameOver
+from app.game_objects.tile import Tile, CollisionTile, MovingPlatform
+from app.game_objects.player import Player
+from app.game_objects.all_sprites import AllSprites
+from app.game_objects.bullet import Bullet, FireAnimation
+from app.game_objects.enemy import Enemy
+from app.game_objects.overlay import Overlay
+from app.game_objects.shared.text import Text
+from app.scenes.game_over import GameOver
 
 
 class App:
@@ -36,17 +36,18 @@ class App:
         self.overlay = Overlay(self.player)
 
         # bullet images
-        self.bullet_surf = pygame.image.load("./assets/graphics/bullet.png").convert_alpha()
-        fire_surf_1 = pygame.image.load("./assets/graphics/fire/0.png").convert_alpha()
-        fire_surf_2 = pygame.image.load("./assets/graphics/fire/1.png").convert_alpha()
+        bullet_file_path = os.path.join(GRAPHICS_DIR, "bullet.png")
+        fire_0_file_path = os.path.join(GRAPHICS_DIR, "fire", "0.png")
+        fire_1_file_path = os.path.join(GRAPHICS_DIR, "fire", "1.png")
+        self.bullet_surf = pygame.image.load(bullet_file_path).convert_alpha()
+        fire_surf_1 = pygame.image.load(fire_0_file_path).convert_alpha()
+        fire_surf_2 = pygame.image.load(fire_1_file_path).convert_alpha()
         self.fire_surfs = [fire_surf_1, fire_surf_2]
 
         # audio
-        self.music = pygame.mixer.Sound("./assets/audio/music.wav")
+        music_file_path = os.path.join(AUDIO_DIR, "music.wav")
+        self.music = pygame.mixer.Sound(music_file_path)
         self.music.play(loops=1)
-
-        # text
-        self.text = Text("Contra Reborn", pos=((WINDOW_WIDTH / 2) - 80, 20))
 
         return
 
@@ -122,19 +123,20 @@ class App:
                 shoot = self.shoot
                 groups = [self.all_sprites, self.vulnerable_sprites]
                 collision_sprites = self.collision_sprites
-                path = "./assets/graphics/player/"
+                path = os.path.join(GRAPHICS_DIR, "player")
                 self.player = Player(pos, groups, path, collision_sprites, shoot)
             if obj.name == "Enemy":
                 pos = (obj.x, obj.y)
                 shoot = self.shoot
                 groups = [self.all_sprites, self.vulnerable_sprites]
                 collision_sprites = self.collision_sprites
-                path = "./assets/graphics/enemies/standard/"
+                path = os.path.join(GRAPHICS_DIR, "enemies", "standard")
                 player = self.player
                 Enemy(pos, path, groups, shoot, player, collision_sprites)
 
     def setup(self):
-        self.tmx_map = load_pygame("./assets/data/map.tmx")
+        tmx_map_path = os.path.join(DATA_DIR, "map.tmx")
+        self.tmx_map = load_pygame(tmx_map_path)
         # render tiles
 
         # render collision tiles
@@ -172,7 +174,6 @@ class App:
             self.bullet_collisions()
             self.all_sprites.custom_draw(self.player)
             self.overlay.display()
-            self.text.draw()
 
             pygame.display.update()
 
