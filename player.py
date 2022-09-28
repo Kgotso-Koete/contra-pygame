@@ -4,6 +4,7 @@ import pygame
 from settings import *
 from pygame.math import Vector2 as vector
 from entity import Entity
+from game_over import GameOver
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -140,8 +141,11 @@ class Player(Entity):
 
     def check_death(self):
         if self.health <= 0:
-            pygame.quit()
-            sys.exit()
+            # pygame.quit()
+            # sys.exit()
+            game_over = GameOver()
+            game_over.display_game_over()
+            return
 
     def update(self, dt):
         self.old_rect = self.rect.copy()  # store previous frame for collision detection
