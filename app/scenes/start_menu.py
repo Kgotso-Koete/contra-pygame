@@ -37,12 +37,12 @@ class StartMenu:
             self.screen.fill((249, 131, 103))
             mouse_pos = pygame.mouse.get_pos()
             screen_header = self.get_font(45).render("Game options", True, "#d7fcd4")
-            screen_header_rect = screen_header.get_rect(center=(640, 260))
+            screen_header_rect = screen_header.get_rect(center=(WINDOW_WIDTH / 2, 260))
             self.screen.blit(screen_header, screen_header_rect)
 
             go_back_text = Button(
                 image=None,
-                pos=(640, 460),
+                pos=(WINDOW_WIDTH / 2, 460),
                 text_input="BACK",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
@@ -68,13 +68,13 @@ class StartMenu:
             self.screen.fill((249, 131, 103))
             mouse_pos = pygame.mouse.get_pos()
             header_text = self.get_font(100).render("MAIN MENU", True, "#d7fcd4")
-            header_text_rect = header_text.get_rect(center=(640, 100))
+            header_text_rect = header_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.15))
 
             play_button_path = os.path.join(GRAPHICS_DIR, "menu", "play_rect.png")
 
             play_button = Button(
                 image=pygame.image.load(play_button_path),
-                pos=(640, 250),
+                pos=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.30),
                 text_input="PLAY",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
@@ -85,7 +85,7 @@ class StartMenu:
 
             options_button = Button(
                 image=pygame.image.load(options_button_path),
-                pos=(640, 400),
+                pos=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.45),
                 text_input="OPTIONS",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
@@ -96,7 +96,7 @@ class StartMenu:
 
             quit_button = Button(
                 image=pygame.image.load(quit_button_path),
-                pos=(640, 550),
+                pos=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.60),
                 text_input="QUIT",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
@@ -110,11 +110,11 @@ class StartMenu:
                 button.update(self.screen)
 
             instructions_text = self.get_font(30).render("Shoot: Space Bar", True, "#d7fcd4")
-            instructions_rect = instructions_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.9))
+            instructions_rect = instructions_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.7))
             self.screen.blit(instructions_text, instructions_rect)
 
             instructions_text = self.get_font(30).render("Move: Arrow keys", True, "#d7fcd4")
-            instructions_rect = instructions_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.95))
+            instructions_rect = instructions_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.75))
             self.screen.blit(instructions_text, instructions_rect)
 
             for event in pygame.event.get():

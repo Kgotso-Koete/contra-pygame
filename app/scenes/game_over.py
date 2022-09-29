@@ -37,12 +37,12 @@ class GameOver:
             mouse_pos = pygame.mouse.get_pos()
             self.screen.fill((249, 131, 103))
             header_text = self.get_font(100).render("GAME OVER", True, "#d7fcd4")
-            header_text_rect = header_text.get_rect(center=(640, 100))
+            header_text_rect = header_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.3))
             self.screen.blit(header_text, header_text_rect)
 
             replay_text = Button(
                 image=None,
-                pos=(640, 460),
+                pos=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.6),
                 text_input="REPLAY",
                 font=self.get_font(75),
                 base_color="#d7fcd4",
