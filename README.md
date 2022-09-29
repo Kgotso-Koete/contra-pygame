@@ -14,6 +14,14 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ---
 
+# Screen shot of the application
+
+|             Start Screen             |             Game Screen             |
+| :----------------------------------: | :---------------------------------: |
+| ![](/screenshots/1_start_screen.png) | ![](/screenshots/2_game_screen.png) |
+
+---
+
 ### Technology stack
 
 1. Python 3.10.6
