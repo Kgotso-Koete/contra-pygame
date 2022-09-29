@@ -6,11 +6,10 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ---
 
-### Click here for the [demo](https://replit.com/@KgotsoKoete/Flappy-Bird-Pygame?v=1)
+### Click here for the [video demo](https://youtu.be/fmPfiV2M-3s)
 
-1. Play it in the [in-browser game](https://replit.com/@KgotsoKoete/Flappy-Bird-Pygame?v=1) here.
-2. Play it on a Windows desktop by downloading the [Windows build folder](./build/exe.win-amd64-3.10/) and clicking on the .exe file
-3. Play it on a Linux desktop by downloading the [Linux build folder](./build/exe.linux-x86_64-3.10/) and clicking on the executable file
+1. Play it on Windows by downloading the [Windows build folder](./build/exe.win-amd64-3.10/) and clicking on the .exe file
+2. Play it on Linux by downloading the [Linux build folder](./build/exe.linux-x86_64-3.10/) and clicking on the executable file
 
 ---
 
@@ -26,7 +25,7 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 1. Python 3.10.6
 2. Pygame 2.1.2
-3. Pytmx 3. 2. Pygame 2.1.2
+3. Pytmx 3.31
 
 ---
 
@@ -39,15 +38,14 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ### 3: Run project
 
-1. Run locally: Navigate to the project folder and run `python3 main.py` to start the game.
-2. Run in an an in-browser IDE: Visit the [Replit](https://replit.com/@KgotsoKoete/Flappy-Bird-Pygame?v=1) and run in full screen mode for the best experience.
+1. Run locally: Navigate to the project folder and run `python3 main.py` (or `python -m main` on Windows if Windows is not working properly) to start the game.
 
 ### Build project executable
 
 Follow the instructions below to build an executable file for Ubuntu Linux and Windows
 
 1. Install executable builder `pip install cx_freeze`
-2. Build the Windows executable by running the following command `python3 setup.py build`
+2. Build the Windows executable by running the following command `python3 setup.py build` (or `python -m setup build` on Windows if Windows is not working properly)
 
 The [Linux executable file](./build/exe.linux-x86_64-3.10/contra) will in the following folder `./build/exe.linux-x86_64-3.10`
 

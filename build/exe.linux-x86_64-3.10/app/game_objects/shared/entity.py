@@ -61,10 +61,8 @@ class Entity(pygame.sprite.Sprite):
         return
 
     def import_assets(self, path):
-
         relative_path = os.path.relpath(path)
         relative_folder = "./" + relative_path
-
         self.animations = {}
 
         # create keys in animations named after each folder with an action
@@ -74,10 +72,14 @@ class Entity(pygame.sprite.Sprite):
                 for name in folder[1]:
                     self.animations[name] = []
             else:
-                for file_name in sorted(folder[2], key=lambda file_string: int(file_string.split(".")[0])):
-                    path = BASE_DIR + folder[0].replace("./", "/") + "/" + file_name
+                file_list = folder[2]
+                file_list_sorted = sorted(file_list, key=lambda file_string: int(file_string.split(".")[0]))
+
+                for file_name in file_list_sorted:
+                    path = os.path.join(folder[0], file_name)
                     surf = pygame.image.load(path).convert_alpha()
-                    key = folder[0].split("/")[-1]
+                    keys = os.path.normpath(path).split(os.path.sep)  # split path into components
+                    key = keys[-2]
                     self.animations[key].append(surf)
         return
 
