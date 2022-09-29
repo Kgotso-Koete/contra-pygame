@@ -6,6 +6,7 @@
 /app/scenes/__pycache__
 # compiled output
 /videos
+/ENV
 
 # IDEs and editors
 /.idea
