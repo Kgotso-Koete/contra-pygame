@@ -45,7 +45,7 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 Follow the instructions below to build an executable file for Ubuntu Linux and Windows
 
 1. Install executable builder `pip install cx_freeze`
-2. Build the Windows executable by running the following command `python3 setup.py build`
+2. Build the Windows executable by running the following command `python3 setup.py build` (or `python -m setup build` on Windows if Windows is not working properly)
 
 The [Linux executable file](./build/exe.linux-x86_64-3.10/contra) will in the following folder `./build/exe.linux-x86_64-3.10`
 
