@@ -14,6 +14,14 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ---
 
+# Screen shot of the application
+
+|             Start Screen             |             Game Screen             |
+| :----------------------------------: | :---------------------------------: |
+| ![](/screenshots/1_start_screen.png) | ![](/screenshots/2_game_screen.png) |
+
+---
+
 ### Technology stack
 
 1. Python 3.10.6
@@ -41,9 +49,9 @@ Follow the instructions below to build an executable file for Ubuntu Linux and W
 1. Install executable builder `pip install cx_freeze`
 2. Build the Windows executable by running the following command `python3 setup.py build`
 
-The [Linux executable file](./build/exe.linux-x86_64-3.10/flappy_bird_pygame) will in the following folder `./build/exe.linux-x86_64-3.10`
+The [Linux executable file](./build/exe.linux-x86_64-3.10/contra) will in the following folder `./build/exe.linux-x86_64-3.10`
 
-The [Windows executable file](./build/exe.win-amd64-3.10/flappy_bird_pygame.exe) will in the following folder `./build/exe.win-amd64-3.10`. The executable must contain all supporting files in this folder to run.
+The [Windows executable file](./build/exe.win-amd64-3.10/contra.exe) will in the following folder `./build/exe.win-amd64-3.10`. The executable must contain all supporting files in this folder to run.
 
 ---
 
