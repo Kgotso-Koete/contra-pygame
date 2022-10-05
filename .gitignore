@@ -5,7 +5,6 @@
 /app/game_objects/shared/__pycache__
 /app/scenes/__pycache__
 # compiled output
-/videos
 /ENV
 
 # IDEs and editors
