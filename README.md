@@ -8,7 +8,9 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ### Play the game
 
-**[Click here to download the latest release for Windows and Linux from the GitHub Releases page.](https://github.com/kgotso-koete/contra-pygame/releases)**
+[Click here to play the game on itch.io](https://kgotso-koete.itch.io/contra-pygame-clone)
+
+[Click here to download the latest release for Windows](https://github.com/kgotso-koete/contra-pygame/dist/contra-pygame.exe)
 
 ### Video Demo
 
