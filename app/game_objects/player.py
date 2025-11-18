@@ -5,9 +5,10 @@ from settings import *
 from pygame.math import Vector2 as vector
 from app.game_objects.shared.entity import Entity
 from app.scenes.game_over import GameOver
+from app.utils.paths import resource_path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = resource_path(".")
 GRAVITY = 15
 SPEED = 400
 JUMP_SPEED = 1400
