@@ -6,6 +6,12 @@
 /app/scenes/__pycache__
 # compiled output
 /ENV
+/.venv
+
+# PyInstaller files
+/build/
+# /dist/
+*.spec
 
 # IDEs and editors
 /.idea

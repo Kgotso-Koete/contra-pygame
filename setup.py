@@ -21,7 +21,7 @@ options = {"build_exe": {"include_files": include_files, "path": sys.path}}
 
 # stop the command window from opening every time the executable is running in Windows
 base = "Win32GUI" if sys.platform.lower() == "win32" else None
-executable = Executable(script="main.py", targetName=targetName, base=base)
+executable = Executable(script="main.py", target_name=targetName, base=base)
 executables = [executable]
 
 
