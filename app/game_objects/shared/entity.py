@@ -4,6 +4,7 @@ import pygame
 from settings import *
 from pygame.math import Vector2 as vector
 from math import sin
+from app.utils.paths import resource_path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SPEED = 400
@@ -51,9 +52,9 @@ class Entity(pygame.sprite.Sprite):
         self.invul_duration = INVULNERABILITY_DURATION
 
         # audio
-        hit_sound_path = os.path.join(AUDIO_DIR, "hit.wav")
+        hit_sound_path = resource_path("assets/audio/hit.wav")
         self.hit_sound = pygame.mixer.Sound(hit_sound_path)
-        shoot_sound_path = os.path.join(AUDIO_DIR, "bullet.wav")
+        shoot_sound_path = resource_path("assets/audio/bullet.wav")
         self.shoot_sound = pygame.mixer.Sound(shoot_sound_path)
         self.hit_sound.set_volume(0.2)
         self.shoot_sound.set_volume(0.2)
@@ -61,14 +62,14 @@ class Entity(pygame.sprite.Sprite):
         return
 
     def import_assets(self, path):
-        relative_path = os.path.relpath(path)
-        relative_folder = "./" + relative_path
+        # path is already a relative folder like: "assets/graphics/player"
         self.animations = {}
 
-        # create keys in animations named after each folder with an action
-        for index, folder in enumerate(walk(relative_folder)):
+        # iterate through subfolders
+        for index, folder in enumerate(walk(path)):
 
             if index == 0:
+                # create animation keys from subfolders
                 for name in folder[1]:
                     self.animations[name] = []
             else:
@@ -76,11 +77,15 @@ class Entity(pygame.sprite.Sprite):
                 file_list_sorted = sorted(file_list, key=lambda file_string: int(file_string.split(".")[0]))
 
                 for file_name in file_list_sorted:
-                    path = os.path.join(folder[0], file_name)
-                    surf = pygame.image.load(path).convert_alpha()
-                    keys = os.path.normpath(path).split(os.path.sep)  # split path into components
-                    key = keys[-2]
+                    # build correct path inside PyInstaller container
+                    file_path = resource_path(os.path.join(folder[0], file_name))
+
+                    surf = pygame.image.load(file_path).convert_alpha()
+                    
+                    # get animation name (folder name)
+                    key = os.path.basename(folder[0])
                     self.animations[key].append(surf)
+
         return
 
     def shoot_timer(self):

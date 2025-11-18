@@ -2,7 +2,7 @@ import pygame, sys, os
 from app.game_objects.shared.button import Button
 from app.app import App
 from settings import *
-
+from app.utils.paths import resource_path
 
 class StartMenu:
     """
@@ -13,18 +13,18 @@ class StartMenu:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Menu")
-        back_ground_path = path = os.path.join(GRAPHICS_DIR, "menu", "background.png")
+        back_ground_path = resource_path("assets/graphics/menu/background.png")
         self.back_ground = pygame.image.load(back_ground_path)
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
         # audio
-        music_path = os.path.join(AUDIO_DIR, "leap.wav")
+        music_path = resource_path("assets/audio/leap.wav")
         self.music = pygame.mixer.Sound(music_path)
         self.music.play(loops=1)
         return
 
     def get_font(self, size):
-        font_path = os.path.join(GRAPHICS_DIR, "menu", "font.ttf")
+        font_path = resource_path("assets/graphics/menu/font.ttf")
         return pygame.font.Font(font_path, size)
 
     def play(self):
@@ -70,7 +70,7 @@ class StartMenu:
             header_text = self.get_font(100).render("MAIN MENU", True, "#d7fcd4")
             header_text_rect = header_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.15))
 
-            play_button_path = os.path.join(GRAPHICS_DIR, "menu", "play_rect.png")
+            play_button_path = resource_path("assets/graphics/menu/play_rect.png")
 
             play_button = Button(
                 image=pygame.image.load(play_button_path),
@@ -81,7 +81,7 @@ class StartMenu:
                 hovering_color="White",
             )
 
-            options_button_path = os.path.join(GRAPHICS_DIR, "menu", "options_rect.png")
+            options_button_path = resource_path("assets/graphics/menu/options_rect.png")
 
             options_button = Button(
                 image=pygame.image.load(options_button_path),
@@ -92,7 +92,7 @@ class StartMenu:
                 hovering_color="White",
             )
 
-            quit_button_path = os.path.join(GRAPHICS_DIR, "menu", "quit_rect.png")
+            quit_button_path = resource_path("assets/graphics/menu/quit_rect.png")
 
             quit_button = Button(
                 image=pygame.image.load(quit_button_path),

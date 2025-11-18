@@ -9,7 +9,7 @@ from app.game_objects.enemy import Enemy
 from app.game_objects.overlay import Overlay
 from app.game_objects.shared.text import Text
 from app.scenes.game_over import GameOver
-
+from app.utils.paths import resource_path
 
 class App:
     """
@@ -26,7 +26,7 @@ class App:
         self.clock = pygame.time.Clock()
 
         # audio
-        music_file_path = os.path.join(AUDIO_DIR, "music.wav")
+        music_file_path = resource_path("assets/audio/music.wav")
         self.music = pygame.mixer.Sound(music_file_path)
         self.music.play(loops=1)
 
@@ -41,9 +41,9 @@ class App:
         self.overlay = Overlay(self.player)
 
         # bullet images
-        bullet_file_path = os.path.join(GRAPHICS_DIR, "bullet.png")
-        fire_0_file_path = os.path.join(GRAPHICS_DIR, "fire", "0.png")
-        fire_1_file_path = os.path.join(GRAPHICS_DIR, "fire", "1.png")
+        bullet_file_path = resource_path("assets/graphics/bullet.png")
+        fire_0_file_path = resource_path("assets/graphics/fire/0.png")
+        fire_1_file_path = resource_path("assets/graphics/fire/1.png")
         self.bullet_surf = pygame.image.load(bullet_file_path).convert_alpha()
         fire_surf_1 = pygame.image.load(fire_0_file_path).convert_alpha()
         fire_surf_2 = pygame.image.load(fire_1_file_path).convert_alpha()
@@ -123,19 +123,19 @@ class App:
                 shoot = self.shoot
                 groups = [self.all_sprites, self.vulnerable_sprites]
                 collision_sprites = self.collision_sprites
-                path = os.path.join(GRAPHICS_DIR, "player")
+                path = resource_path("assets/graphics/player")
                 self.player = Player(pos, groups, path, collision_sprites, shoot, self.music)
             if obj.name == "Enemy":
                 pos = (obj.x, obj.y)
                 shoot = self.shoot
                 groups = [self.all_sprites, self.vulnerable_sprites]
                 collision_sprites = self.collision_sprites
-                path = os.path.join(GRAPHICS_DIR, "enemies", "standard")
+                path = resource_path("assets/graphics/enemies/standard")
                 player = self.player
                 Enemy(pos, path, groups, shoot, player, collision_sprites)
 
     def setup(self):
-        tmx_map_path = os.path.join(DATA_DIR, "map.tmx")
+        tmx_map_path = resource_path("assets/data/map.tmx")
         self.tmx_map = load_pygame(tmx_map_path)
         # render tiles
 

@@ -4,6 +4,7 @@
 /app/game_objects/__pycache__
 /app/game_objects/shared/__pycache__
 /app/scenes/__pycache__
+/app/utils/__pycache__
 # compiled output
 /ENV
 /.venv

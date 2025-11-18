@@ -2,7 +2,7 @@ import pygame, sys
 from settings import *
 from app.game_objects.shared.button import Button
 from app.scenes import start_menu
-
+from app.utils.paths import resource_path
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -21,13 +21,13 @@ class GameOver:
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
         # audio
-        music_path = os.path.join(AUDIO_DIR, "leap.wav")
+        music_path = resource_path("assets/audio/leap.wav")
         self.music = pygame.mixer.Sound(music_path)
         self.music.play(loops=1)
         return
 
     def get_font(self, size):
-        font_path = os.path.join(GRAPHICS_DIR, "menu", "font.ttf")
+        font_path = resource_path("assets/graphics/menu/font.ttf")
         return pygame.font.Font(font_path, size)
 
     def display_game_over(self):

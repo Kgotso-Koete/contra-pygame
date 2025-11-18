@@ -2,6 +2,8 @@ import pygame
 from pytmx.util_pygame import load_pygame
 from settings import *
 from pygame.math import Vector2 as vector
+from app.utils.paths import resource_path
+
 
 SKY_Y_POS = 800
 
@@ -16,12 +18,12 @@ class AllSprites(pygame.sprite.Group):
 
     def load_sky(self):
         # import sky
-        fg_sky_path = os.path.join(GRAPHICS_DIR, "sky", "fg_sky.png")
+        fg_sky_path = resource_path("assets/graphics/sky/fg_sky.png")
         self.fg_sky = pygame.image.load(fg_sky_path).convert_alpha()
-        bg_sky_path = os.path.join(GRAPHICS_DIR, "sky", "bg_sky.png")
+        bg_sky_path = resource_path("assets/graphics/sky/bg_sky.png")
         self.bg_sky = pygame.image.load(bg_sky_path).convert_alpha()
-        tmx_map_path = os.path.join(DATA_DIR, "map.tmx")
-        tmx_map = tmx_map = load_pygame(tmx_map_path)
+        tmx_map_path = resource_path("assets/data/map.tmx")
+        tmx_map = load_pygame(tmx_map_path)
 
         # dimensions
         self.padding = WINDOW_WIDTH / 2

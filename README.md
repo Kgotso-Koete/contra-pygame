@@ -57,7 +57,13 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 5. **Install Python Packages:** Install all the required packages from the `requirements.txt` file:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements-windows.txt
+   ```
+
+   or
+
+   ```bash
+   pip install -r requirements-linux.txt
    ```
 
 ### 3: Run project
@@ -84,7 +90,10 @@ To create a single executable file for distribution on platforms like itch.io, w
 
    **For Windows:**
    ```cmd
-   pyinstaller --onefile --windowed --name contra-pygame --add-data "assets;assets" --add-data "app;app" main.py
+   pyinstaller --onefile --windowed --name contra-pygame `
+   --add-data "assets;assets" `
+   --add-data "app;app" `
+   main.py
    ```
 
    After the process completes, you will find the single executable file inside the `dist` folder. This is the file you can upload for distribution.

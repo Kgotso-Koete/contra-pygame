@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+from app.utils.paths import resource_path
 
 HEALTH_BAR_GAP = 4
 
@@ -8,7 +9,7 @@ class Overlay:
     def __init__(self, player):
         self.player = player
         self.display_surface = pygame.display.get_surface()
-        health_bar_path = os.path.join(GRAPHICS_DIR, "health.png")
+        health_bar_path = resource_path("assets/graphics/health.png")
         self.health_surf = pygame.image.load(health_bar_path).convert_alpha()
         return
 
