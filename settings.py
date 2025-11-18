@@ -1,7 +1,11 @@
-import os
+import pygame, sys, os
 from app.utils.paths import resource_path
 
-WINDOW_WIDTH, WINDOW_HEIGHT = 1920, 1080
+pygame.init()
+info = pygame.display.Info()
+print(info)
+WINDOW_WIDTH = info.current_w
+WINDOW_HEIGHT = info.current_h
 
 LAYERS = {
     "BG": 0,
