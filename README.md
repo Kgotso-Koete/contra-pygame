@@ -52,9 +52,18 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
    ```
 
 4. **Activate the Virtual Environment:**
-
+   
+   Linux environment
    ```bash
    source .venv/bin/activate
+   ```
+
+   Windows environment
+   ```bash
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+   ```bash
+   .\.venv\Scripts\Activate.ps1
    ```
 
 5. **Install Python Packages:** Install all the required packages from the `requirements.txt` file:
